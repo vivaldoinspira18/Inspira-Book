@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>InspiraBook - Publicar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    header {
+        width: 100%;
+        background: #3498db;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 30px;
+        margin-right: 10px;
+    }
+    .perfil-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        color: #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .publicar-box {
+        background: white;
+        padding: 20px;
+        margin-top: 40px;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .publicar-box h3 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .publicar-box label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+    }
+    .publicar-box textarea, .publicar-box input, .publicar-box select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: none;
+    }
+    .publicar-box button {
+        width: 100%;
+        padding: 10px;
+        background: #3498db;
+        color: white;
+        border: none;
+        margin-top: 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .publicar-box button:hover {
+        background: #2980b9;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906349.png" alt="Logo">
+        <h2>InspiraBook</h2>
+    </div>
+    <div class="perfil-icon" onclick="window.location.href='perfil.html'">B</div>
+</header>
+
+<div class="publicar-box">
+    <h3>Nova Publicação</h3>
+
+    <label for="tipoPost">Tipo de publicação:</label>
+    <select id="tipoPost">
+        <option value="textoCurto">Texto Curto</option>
+        <option value="conto">Conto ou História (máx. 3 páginas)</option>
+        <option value="imagemVideo">Imagem ou Vídeo</option>
+    </select>
+
+    <div id="campoTexto" style="display: none;">
+        <label for="textoPost">Texto:</label>
+        <textarea id="textoPost" rows="4" placeholder="Escreve o teu texto..."></textarea>
+    </div>
+
+    <div id="campoArquivo" style="display: none;">
+        <label for="arquivoPost">Seleciona uma imagem ou vídeo:</label>
+        <input type="file" id="arquivoPost" accept="image/*,video/*">
+        <label for="legendaPost">Legenda:</label>
+        <textarea id="legendaPost" rows="3" placeholder="Escreve uma legenda..."></textarea>
+    </div>
+
+    <button onclick="publicar()">Publicar</button>
+</div>
+
+<script>
+const tipoPost = document.getElementById("tipoPost");
+const campoTexto = document.getElementById("campoTexto");
+const campoArquivo = document.getElementById("campoArquivo");
+
+tipoPost.addEventListener("change", () => {
+    const valor = tipoPost.value;
+    campoTexto.style.display = (valor === "textoCurto" || valor === "conto") ? "block" : "none";
+    campoArquivo.style.display = (valor === "imagemVideo") ? "block" : "none";
+});
+
+function publicar() {
+    const tipo = tipoPost.value;
+    let publicacoes = JSON.parse(localStorage.getItem("publicacoes")) || [];
+
+    if (tipo === "imagemVideo") {
+        const arquivo = document.getElementById("arquivoPost").files[0];
+        const legenda = document.getElementById("legendaPost").value.trim();
+
+        if (!arquivo) {
+            alert("Seleciona uma imagem ou vídeo.");
+            return;
+        }
+        if (!legenda) {
+            alert("Escreve uma legenda.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            publicacoes.push({
+                tipo: "imagemVideo",
+                arquivo: e.target.result,
+                legenda: legenda
+            });
+            salvar(publicacoes);
+        };
+        reader.readAsDataURL(arquivo);
+
+    } else {
+        const texto = document.getElementById("textoPost").value.trim();
+        if (!texto) {
+            alert("Escreve algo para publicar.");
+            return;
+        }
+        if (tipo === "conto" && texto.length > 10000) {
+            alert("O conto é muito longo. Máximo de 3 páginas.");
+            return;
+        }
+
+        publicacoes.push({
+            tipo: "textoCurto",
+            texto: texto
+        });
+        salvar(publicacoes);
+    }
+}
+
+function salvar(publicacoes) {
+    localStorage.setItem("publicacoes", JSON.stringify(publicacoes));
+    alert("Publicação criada com sucesso!");
+    window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>

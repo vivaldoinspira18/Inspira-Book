@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>InspiraBook - Perfil</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    header {
+        width: 100%;
+        background: #3498db;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 30px;
+        margin-right: 10px;
+    }
+    .perfil-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        color: #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .perfil-container {
+        background: white;
+        margin-top: 20px;
+        padding: 20px;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .foto-perfil {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid #3498db;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin: 15px 0;
+    }
+    .stats div {
+        text-align: center;
+    }
+    .bio, .redes {
+        text-align: center;
+        margin: 10px 0;
+    }
+    .btn-perfil {
+        padding: 8px 15px;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .grid-posts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        margin-top: 20px;
+    }
+    .grid-posts img, .grid-posts video {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906349.png" alt="Logo">
+        <h2>InspiraBook</h2>
+    </div>
+    <div class="perfil-icon" onclick="window.location.href='configuracoes.html'">⚙️</div>
+</header>
+
+<div class="perfil-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" alt="Foto de Perfil" class="foto-perfil">
+    <h3 id="nomeUsuario">Teu Nome</h3>
+    <div class="stats">
+        <div><strong id="contagemPublicacoes">0</strong><br>Publicações</div>
+        <div><strong id="contagemSeguidores">0</strong><br>Seguidores</div>
+        <div><strong id="contagemSeguindo">0</strong><br>Seguindo</div>
+    </div>
+    <div class="bio" id="bioUsuario">Esta é a tua biografia.</div>
+    <div class="redes" id="redesUsuario"><a href="#" target="_blank">www.tuarede.com</a></div>
+    <button class="btn-perfil" onclick="editarPerfil()">Editar Perfil</button>
+</div>
+
+<div class="perfil-container">
+    <h4>Publicações</h4>
+    <div class="grid-posts" id="gridPosts">
+        <!-- As publicações vão aparecer aqui -->
+    </div>
+</div>
+
+<script>
+const publicacoes = JSON.parse(localStorage.getItem("publicacoes")) || [];
+const grid = document.getElementById("gridPosts");
+const contagem = document.getElementById("contagemPublicacoes");
+contagem.innerText = publicacoes.length;
+
+publicacoes.forEach(post => {
+    const el = document.createElement(post.tipo === "imagemVideo" && post.arquivo.endsWith(".mp4") ? "video" : "img");
+
+    if (post.tipo === "imagemVideo") {
+        if (post.arquivo.endsWith(".mp4")) {
+            el.src = post.arquivo;
+            el.controls = true;
+        } else {
+            el.src = post.arquivo;
+        }
+    } else {
+        el.src = "https://cdn-icons-png.flaticon.com/512/906/906349.png";
+    }
+
+    grid.prepend(el);
+});
+
+function editarPerfil() {
+    window.location.href = "editarPerfil.html";
+}
+</script>
+
+</body>
+</html>

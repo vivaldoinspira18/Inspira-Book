@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>InspiraBook - Explorar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        display: flex;
+    }
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #3498db;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 30px;
+        margin-right: 10px;
+    }
+    .perfil-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        color: #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .lateral-esquerda {
+        width: 70px;
+        background: white;
+        padding: 10px 0;
+        border-right: 1px solid #ddd;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .lateral-esquerda img {
+        width: 30px;
+        margin: 20px 0;
+        cursor: pointer;
+    }
+    .conteudo-principal {
+        flex: 1;
+        margin-top: 60px;
+        margin-left: 70px;
+        padding: 20px;
+    }
+    .explorar-feed {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    .explorar-feed img {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        object-fit: cover;
+        height: 150px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906349.png" alt="Logo">
+        <h2>InspiraBook</h2>
+    </div>
+    <div class="perfil-icon" onclick="window.location.href='perfil.html'">B</div>
+</header>
+
+<div class="lateral-esquerda">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" title="Início" onclick="window.location.href='home.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" title="Explorar" onclick="window.location.href='explorar.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/1827/1827392.png" title="Notificações" onclick="window.location.href='notificacoes.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/2950/2950651.png" title="Mensagens" onclick="window.location.href='mensagens.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" title="Publicar" onclick="window.location.href='publicar.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" title="Configurações" onclick="window.location.href='configuracoes.html'">
+</div>
+
+<div class="conteudo-principal">
+    <h2>Explorar</h2>
+    <div class="explorar-feed">
+        <img src="https://picsum.photos/200?random=1" alt="Post">
+        <img src="https://picsum.photos/200?random=2" alt="Post">
+        <img src="https://picsum.photos/200?random=3" alt="Post">
+        <img src="https://picsum.photos/200?random=4" alt="Post">
+        <img src="https://picsum.photos/200?random=5" alt="Post">
+        <img src="https://picsum.photos/200?random=6" alt="Post">
+    </div>
+</div>
+
+</body>
+</html>

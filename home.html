@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>InspiraBook - Página Inicial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        display: flex;
+    }
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #3498db;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 30px;
+        margin-right: 10px;
+    }
+    .perfil-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        color: #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .lateral-esquerda {
+        width: 70px;
+        background: white;
+        padding: 10px 0;
+        border-right: 1px solid #ddd;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .lateral-esquerda img {
+        width: 30px;
+        margin: 20px 0;
+        cursor: pointer;
+    }
+    .lateral-direita {
+        width: 300px;
+        background: white;
+        padding: 10px;
+        border-left: 1px solid #ddd;
+        position: fixed;
+        top: 60px;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        display: none;
+    }
+    .conteudo-principal {
+        flex: 1;
+        margin-top: 60px;
+        margin-left: 70px;
+        margin-right: 300px;
+        max-width: 600px;
+        padding: 20px;
+    }
+    .stories {
+        display: flex;
+        overflow-x: auto;
+        margin-bottom: 20px;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .story {
+        flex: 0 0 auto;
+        width: 70px;
+        margin-right: 10px;
+        text-align: center;
+    }
+    .story img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 2px solid #3498db;
+        object-fit: cover;
+    }
+    .feed .post {
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .post img, .post video {
+        width: 100%;
+        display: block;
+    }
+    .descricao {
+        padding: 10px;
+    }
+    .descricao h4 {
+        margin: 0 0 5px;
+        color: #3498db;
+    }
+    .acoes {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+    }
+    .acoes img {
+        width: 24px;
+        cursor: pointer;
+    }
+    .hashtag {
+        color: #3498db;
+    }
+    @media (max-width: 800px) {
+        .lateral-esquerda, .lateral-direita {
+            display: none;
+        }
+        .conteudo-principal {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906349.png" alt="Logo">
+        <h2>InspiraBook</h2>
+    </div>
+    <div class="perfil-icon" onclick="window.location.href='perfil.html'">B</div>
+</header>
+
+<div class="lateral-esquerda">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" title="Início" onclick="window.location.href='home.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" title="Explorar" onclick="window.location.href='explorar.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/1827/1827392.png" title="Notificações" onclick="toggleNotificacoes()">
+    <img src="https://cdn-icons-png.flaticon.com/512/2950/2950651.png" title="Mensagens" onclick="toggleConversas()">
+    <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" title="Publicar" onclick="window.location.href='publicar.html'">
+    <a href="configuracoes.html">
+        <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" title="Configurações" style="cursor: pointer;">
+    </a>
+</div>
+
+<div class="conteudo-principal">
+    <section class="stories">
+        <div class="story">
+            <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" alt="Story">
+            <span>Tu</span>
+        </div>
+        <div class="story">
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="Story">
+            <span>Maria</span>
+        </div>
+    </section>
+
+    <section class="feed" id="feedPosts">
+        <!-- As publicações serão inseridas aqui -->
+    </section>
+</div>
+
+<div class="lateral-direita" id="caixaConversas">
+    <h4>Conversas</h4>
+    <p><strong>Maria:</strong> Olá, tudo bem?</p>
+    <p><strong>João:</strong> Gostei do teu poema!</p>
+</div>
+
+<div class="lateral-direita" id="caixaNotificacoes" style="right: 70px; display: none;">
+    <h4>Notificações</h4>
+    <p>Maria curtiu o teu post.</p>
+    <p>João comentou: "Muito bom!"</p>
+</div>
+
+<script>
+function toggleConversas() {
+    const caixa = document.getElementById("caixaConversas");
+    caixa.style.display = caixa.style.display === "block" ? "none" : "block";
+    document.getElementById("caixaNotificacoes").style.display = "none";
+}
+
+function toggleNotificacoes() {
+    const caixa = document.getElementById("caixaNotificacoes");
+    caixa.style.display = caixa.style.display === "block" ? "none" : "block";
+    document.getElementById("caixaConversas").style.display = "none";
+}
+
+const posts = JSON.parse(localStorage.getItem("publicacoes")) || [];
+const feed = document.getElementById("feedPosts");
+
+posts.forEach(post => {
+    const div = document.createElement("div");
+    div.className = "post";
+
+    if (post.tipo === "imagemVideo") {
+        if (post.arquivo.endsWith(".mp4")) {
+            div.innerHTML = `<video controls src="${post.arquivo}"></video><div class="descricao"><h4>Tu</h4><p>${post.legenda}</p></div>`;
+        } else {
+            div.innerHTML = `<img src="${post.arquivo}" alt="Post"><div class="descricao"><h4>Tu</h4><p>${post.legenda}</p></div>`;
+        }
+    } else {
+        div.innerHTML = `<div class="descricao"><h4>Tu</h4><p>${post.texto}</p></div>`;
+    }
+
+    const acoes = document.createElement("div");
+    acoes.className = "acoes";
+    acoes.innerHTML = `
+        <img src="https://cdn-icons-png.flaticon.com/512/889/889140.png" title="Curtir">
+        <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png" title="Comentar">
+        <img src="https://cdn-icons-png.flaticon.com/512/786/786205.png" title="Partilhar">
+    `;
+
+    div.appendChild(acoes);
+    feed.prepend(div);
+});
+</script>
+
+</body>
+</html>
